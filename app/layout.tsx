@@ -2,6 +2,7 @@ import type {Metadata} from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import "easymde/dist/easymde.min.css";
+import { Toaster } from "@/components/ui/toaster";
 
 const workSans = localFont({
     src: [
@@ -55,7 +56,7 @@ const workSans = localFont({
 });
 
 export const metadata: Metadata = {
-    title: "YC_Directory",
+    title: "Ekiti Innovation Summit | Pitch Your Startup",
     description: "Pitch, Vote and Grow",
 };
 
@@ -70,6 +71,7 @@ export default function RootLayout({
             className={workSans.variable}
         >
         {children}
+        <Toaster />
         </body>
         </html>
     );
