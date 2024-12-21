@@ -185,6 +185,7 @@
     @apply bg-primary text-white border-[4px] border-none rounded-full p-5 min-h-[70px] w-full font-bold text-[18px] !important;
   }
 
+
   /* view */
   .view-container {
     @apply flex justify-end items-center mt-5 fixed bottom-3 left-3;
