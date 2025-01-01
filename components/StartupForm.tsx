@@ -19,9 +19,22 @@ const StartupForm = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [pitch, setPitch] = useState("");
 
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
+  const [link, setLink] = useState("");
+
   const handleFormSubmit = async (prevState: any, formData: FormData) => {
+    let formValues = {
+      title: "",
+      description: "",
+      category: "",
+      link: "",
+      pitch,
+    };
+
     try {
-      const formValues = {
+      formValues = {
         title: formData.get("title") as string,
         description: formData.get("description") as string,
         category: formData.get("category") as string,
@@ -46,6 +59,11 @@ const StartupForm = () => {
       return result;
     } catch (error) {
       if (error instanceof z.ZodError) {
+        setTitle(formValues.title);
+        setDescription(formValues.description);
+        setCategory(formValues.category);
+        setLink(formValues.link);
+        
         const fieldErrors = error.flatten().fieldErrors;
 
         setErrors(fieldErrors as unknown as Record<string, string>);
@@ -56,6 +74,7 @@ const StartupForm = () => {
           variant: "destructive",
         });
 
+        
         return { ...prevState, error: "Validation failed", status: "ERROR" };
       }
 
@@ -86,6 +105,8 @@ const StartupForm = () => {
         </label>
 
         <Input
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
           id="title"
           name="title"
           placeholder="Startup Title"
@@ -102,6 +123,8 @@ const StartupForm = () => {
         </label>
 
         <Textarea
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
           id="description"
           name="description"
           placeholder="Startup Description"
@@ -119,6 +142,8 @@ const StartupForm = () => {
           Category
         </label>
         <Input
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
           id="category"
           name="category"
           placeholder="Startup Category (e.g Tech, Fintech, Health, Education, etc.)"
@@ -136,6 +161,8 @@ const StartupForm = () => {
           Image URL
         </label>
         <Input
+          value={link}
+          onChange={(e) => setLink(e.target.value)}
           id="link"
           name="link"
           placeholder="Paste a link to your demo or promotional media"
